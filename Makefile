@@ -3,12 +3,14 @@ CFLAGS = -std=c++17 -Wall -Wextra -O3
 
 SRCS = llo.cpp pi_calculator.cpp test_long_number.cpp
 OBJS = $(SRCS:.cpp=.o)
-
+GTEST_DIR = third_party/googletest
 TEST_EXEC = test_long_number
 PI_EXEC = pi_calculator
 
 all: test pi
-
+$(GTEST_DIR)/CMakeLists.txt:
+	@echo "Скачивание Google Test..."
+	git clone https://github.com/google/googletest.git $(GTEST_DIR)
 $(TEST_EXEC): llo.o test_long_number.o
 	$(CC) $(CFLAGS) -o $@ $^ -lgtest -lgtest_main -pthread
 
